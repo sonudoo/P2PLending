@@ -1,27 +1,24 @@
-
-rule EverybodyCanReadEverything {
-    description: "Allow all participants read access to all resources"
+rule PersonUser {
+    description: "Grant Person full access to user resources"
     participant: "org.p2plending.model.Person"
-    operation: READ
-    resource: "org.p2plending.model.*"
+    operation: ALL
+    resource: "**"
     action: ALLOW
 }
 
 rule EverybodyCanSubmitRequestTransactions {
     description: "Allow all participants to request loans"
-    participant(p): "org.p2plending.model.Person"
+    participant: "org.p2plending.model.Person"
     operation: CREATE
-    resource(r): "org.p2plending.model.requestTxn"
-    condition: (r.receiverId == p.getIdentifier())
+    resource: "org.p2plending.model.requestTxn"
     action: ALLOW
 }
 
 rule EverybodyCanSubmitLendTransactions {
     description: "Allow all participants to lend loans"
-    participant(p): "org.p2plending.model.Person"
+    participant: "org.p2plending.model.Person"
     operation: CREATE
-    resource(r): "org.p2plending.model.lendTxn"
-    condition: (r.senderId == p.getIdentifier())
+    resource: "org.p2plending.model.lendTxn"
     action: ALLOW
 }
 rule EverybodyCanSubmitRepaymentTransactions {
